@@ -1,12 +1,10 @@
 #include <iostream>
 #include "engine/Engine.hpp"
-
 /*
 	Welcome :D*
 
 	( I Would recommend you to use
-	VISUAL STUDIO since i do the majority
-	if it on it :D* )
+	VISUAL STUDIO :D* )
 	If you're gonna run this thing
 	Just Link the Include folder and
 	libraries on the propperties tab
@@ -39,11 +37,12 @@ int main(int argc, char** argv)
 	Engine engine;
 
 	// Run Engine! :D*
-	if (!engine.run())
+	if (!engine.start())
 	{
 		std::cout << "Failed to run the engine! " << std::endl;
 	}
 	
+	// Freeup Stuff :D*
 	engine.stop();
 
 	return 0;

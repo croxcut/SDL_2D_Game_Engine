@@ -1,53 +1,70 @@
 #include "Window.hpp"
 
+
+Window::Window()
+{
+	// Window Constructor :D*
+	// sets initializers value to nullptr[nothing] :D*
+	window = nullptr;
+	renderer = nullptr;
+}
+
+Window::~Window()
+{
+	// Freeup stuff if the class
+	// is out of scope :D*
+	cleanup();
+}
+
 bool Window::init()
 {
-	// Create an Asset Loader instance :D*
-	AssetLoader asset; 
-
-	// Initialize SDL :D*
+	// Initalize SDL! :D*
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		std::cout << "Failed to initialize SDL! | Error: " << SDL_GetError() << std::endl;
+		std::cout << "Couldn't Initialize SDL! | Error: " << SDL_GetError() << std::endl;
 		return false;
 	}
 	else
 	{
-		// Create Window :D*
+		// Setup Window Paramter :D&
 		window = SDL_CreateWindow(
-			TITLE.c_str(),					// Window Title :D*
-			SDL_WINDOWPOS_CENTERED,			// Render The Window to the Center of the Screen :D*
-			SDL_WINDOWPOS_CENTERED,			//	||	   ||   ||   ||  ||   ||   ||  ||   ||
-			SCREEN_WIDTH,					// Window Width :D*
-			SCREEN_HEIGHT,					// Window Height :D*
-			SDL_WINDOW_SHOWN				// Display the Window tot the Screen :D*
+			TITLE.c_str(),				// Window Title
+			SDL_WINDOWPOS_CENTERED,		//
+			SDL_WINDOWPOS_CENTERED,
+			SCREEN_WIDTH,
+			SCREEN_HEIGHT,
+			SDL_WINDOW_SHOWN
 		);
-		
-		// Returns a false flag if we failed to create Window :D*
+
+		// Check if failed to create Window :D*, returns a false flag :D*
 		if (window == NULL)
 		{
-			std::cout << "Failed to create Window! | Error: " << SDL_GetError() << std::endl;
+			std::cout << "Window Creation Failed! | Error: " << SDL_GetError() << std::endl;
 			return false;
 		}
 		else
 		{
 			// Create Renderer :D*
 			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+			// Check if faield to create Renderer, returns a false flag :D*
 			if (renderer == NULL)
 			{
-				std::cout << "Renderer could not be created! | Error: " << SDL_GetError() << std::endl;
+				std::cout << "Failed to Create Renderer! | Error: " << SDL_GetError() << std::endl;
 				return false;
 			}
 			else
 			{
-				// Set Background color :D*
+				// Set Background Color :D*
 				SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
-				// Initialize SLD_Image so we can load PNG files :D*
-				int imgFlags = IMG_INIT_PNG;
-				if (!(IMG_Init(imgFlags) & imgFlags))
+				// Initialize SDL_Image :D*
+				int image = IMG_INIT_PNG;
+
+				// Check if failed to initialize :D*
+				if (!(IMG_Init(image) & image))
 				{
-					std::cout << "SDL_Image Couldnot be initialize! | Error: " << IMG_GetError() << std::endl;
+					std::cout << "SDL_Image Could not be Initialize! | Error: " << IMG_GetError() << std::endl;
 					return false;
 				}
 			}
@@ -57,15 +74,23 @@ bool Window::init()
 	return true;
 }
 
-void Window::cleanup() 
+SDL_Renderer* Window::getRenderer()
 {
-	// Free Up resources back to the System :D*
+	return renderer;
+}
+
+SDL_Window* Window::getWindow()
+{
+	return window;
+}
+
+void Window::cleanup()
+{
 	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+
+	window = nullptr;
 	renderer = nullptr;
 
-	SDL_DestroyWindow(window);
-	window = nullptr;
-
-	// Quit SDL Libraries :D*
 	SDL_Quit();
 }

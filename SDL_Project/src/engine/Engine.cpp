@@ -1,70 +1,64 @@
 #include "Engine.hpp"
 
-bool Engine::run()
-{
+bool Engine::start()
+{	
+	// Initialize Window :D*
 	if (!window.init())
 	{
-		// Initializes Window :D*
-		std::cout << "Failed to Initialize! " << std::endl;
+		std::cout << "Failed to Initialize Window" << std::endl;
 		return false;
 	}
 	else
-	{	
-		// Initialize AssetLoader :D*
-		asset.init(window.window, window.renderer);
-		if (!asset.loadMedia())
+	{
+		// Event listener ( this handles any kind of input events :D* )
+		SDL_Event e;
+
+		// Player speed :D*
+		int speed = 4;
+
+		// Running flag :D*
+		bool running = true;
+
+		// Game loop (kinda ass right now but will refactor later :D*)
+		while (running)
 		{
-			// Checks if we successfully loaded a Texture :D*
-			return false;
-		}
-		else
-		{	
-			int x = 0;
-			int y = 0;
-			int speed = 4;
-
-			// This handles the input events :D*
-			SDL_Event e;
-
-			bool running = true; // Running flag :D*
-
-			// Game Loop :D*
-			while (running)
+			while (SDL_PollEvent(&e))
 			{
-				while (SDL_PollEvent(&e))
-				{
-					if (e.type == SDL_QUIT) running = false;				
+				if (e.type == SDL_QUIT) running = false;
 
-					// Poormans Movement code :D* (i will implement a much better one)
-					int key = e.key.keysym.sym;
+				// Initialize Input
+				input.pressed(e);
 
-					if (key == SDLK_UP) y -= speed;		// Move Up
-					if (key == SDLK_DOWN) y += speed;	// Move Down
-					if (key == SDLK_LEFT) x -= speed;   // Move Left
-					if (key == SDLK_RIGHT) x += speed;	// Move Right
+				if (input.moveUp) player.y -= speed;
+				if (input.moveDown) player.y += speed;
+				if (input.moveLeft) player.x -= speed;
+				if (input.moveRight) player.x += speed;
 
-				}
-
-				// Clear Window :D*
-				SDL_RenderClear(window.renderer);
-
-				// Render Stuff to the Windwo :D*
-				asset.render(x, y, 100, 100);
-
-				// Update Window :D*
-				SDL_RenderPresent(window.renderer);
-
+				// Release key input
+				input.unpressed();
 			}
+
+			// Clear Window :D*
+			SDL_RenderClear(window.getRenderer());
+			
+			// Render PLayer Sprite :D*
+			player.render(window.getRenderer());
+
+			// Update the Window after the Sprite is rendered :D*
+			SDL_RenderPresent(window.getRenderer());
+
 		}
 	}
 
 	return true;
-
 }
 
 void Engine::stop()
-{	
-	// Cleanup stuff :D*
+{
+	// Freeup Stuff when the 
+	// The Engine is no longer
+	// Running :D*
 	window.cleanup();
-	asset.cleanup();
+	texture.cleanup();
+	player.cleanup();
 }

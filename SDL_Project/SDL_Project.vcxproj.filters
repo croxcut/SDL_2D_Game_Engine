@@ -14,20 +14,30 @@
     <ClCompile Include="src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\graphics\Window.cpp">
+    <ClCompile Include="src\engine\entity\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\utils\AssetLoader.cpp">
+    <ClCompile Include="src\engine\entity\player\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\graphics\Scene\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\graphics\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\utils\InputHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\entity\Entity.hpp" />
+    <ClInclude Include="src\engine\entity\player\Player.hpp" />
+    <ClInclude Include="src\engine\graphics\Scene\Texture.hpp" />
     <ClInclude Include="src\engine\graphics\Window.hpp" />
-    <ClInclude Include="src\engine\utils\Utils.hpp" />
-    <ClInclude Include="src\engine\utils\AssetLoader.hpp" />
     <ClInclude Include="src\engine\Engine.hpp" />
   </ItemGroup>
 </Project>
