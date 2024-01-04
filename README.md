@@ -4,7 +4,7 @@
 
 - Refactored Code base
 - Added Entity Component system
-- Fix A memory Leak issue (encountered during refactoring)
+- Fixed A memory Leak issue (encountered during refactoring)
 - Added A proper input system (might refactor it)
 - January 5 2024 -
 
