@@ -1,5 +1,13 @@
 # SDL 2D Game Engine
 
+##UPDATE:
+
+= Refactored Code base
+- Added Entity Component system
+- Fix A memory Leak issue (encountered during refactoring)
+- Added A proper input system (might refactor it)
+- January 5 2024 -
+
 I have been shelving this project for over 6months now because im quite busy with things :D*
 
 So for this year i want to publish a simple 2d Game engine for my game project ( which is not properly planed out by now )
